@@ -26,7 +26,7 @@ provider "aws" {
 # and manage the Resource described.  If the Resource already exists
 # it must be imported into Terraform's state.
 resource "aws_s3_bucket" "bucket1" {
-    bucket = "backet1r"
+  bucket = "backet1r"
 }
 
 
@@ -39,9 +39,32 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-output "greeting" {
-  value = "Hello Terraform."
+#Outputs
+# Outputs are printed by the CLI after `apply`.
+# These can reveal calculated values.
+# Also used in more advanced use cases: modules, remote_state
+# Outputs can be retrieved at any time by running `terraform output`
+
+# this the value got form the resource mentioned
+output "bucket_info" {
+  value = aws_s3_bucket.bucket1.bucket
 }
+
+# to  get values from the data sources, we need to prefix it with `data`, then `type`, then `label`
+output "aws_caller_info" {
+  value = data.aws_caller_identity.current
+}
+
+output "aws_availability_zones" {
+  value = data.aws_availability_zones.available
+}
+
+
+
+# ! this is a simple output values.
+# output "greeting" {
+#   value = "Hello Terraform."
+# }
 
 # this was a random provider.
 # provider "random" {}

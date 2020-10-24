@@ -44,3 +44,13 @@ now , let's see the output:
 ```bash
 terraform output
 ```
+
+### AWS credentials 
+
+Since aws credentials are sensitive info, they are not added in the `main.tf` file, 
+they are set and exported in the environment variable in bash.
+
+```bash
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+```
