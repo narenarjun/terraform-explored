@@ -41,20 +41,55 @@ resource "aws_s3_bucket" "bucket2" {
 # Resources can depend on one another.  Terraform will ensure that all
 # dependencies are met before creating the resource.  Dependency can
 # be implicit or explicit.
-resource "aws_s3_bucket" "bucket3" {
-    bucket = "${data.aws_caller_identity.current.account_id}-bucket3"
-    tags = {
-        # * Implicit dependency
-        dependency = aws_s3_bucket.bucket2.arn
-  }
+
+# ! the following bucket 3 and bucket 4 is commented to reserve rescources.
+# resource "aws_s3_bucket" "bucket3" {
+#     bucket = "${data.aws_caller_identity.current.account_id}-bucket3"
+#     tags = {
+#         # * Implicit dependency
+#         dependency = aws_s3_bucket.bucket2.arn
+#   }
+# }
+
+# resource "aws_s3_bucket" "bucket4" {
+#     bucket = "${data.aws_caller_identity.current.account_id}-bucket4"
+#     # * Explicit
+#     depends_on = [
+#         aws_s3_bucket.bucket3
+#     ]
+# }
+
+
+#Variables
+# Can be specified on the command line with -var bucket_name=my-bucket
+# or in files: terraform.tfvars or *.auto.tfvars
+# or in environment variables: TF_VAR_bucket_name
+variable "bucket_name" {
+  # `type` is an optional data type specification
+  type = string
+
+  # `default` is the optional default value.  If `default` is ommited
+  # then a value must be supplied.
+  #default = "my-bucket"
 }
 
-resource "aws_s3_bucket" "bucket4" {
-    bucket = "${data.aws_caller_identity.current.account_id}-bucket4"
-    # * Explicit
-    depends_on = [
-        aws_s3_bucket.bucket3
-    ]
+resource "aws_s3_bucket" "bucket5" {
+  bucket = var.bucket_name
+}
+
+
+#Local Values
+# Local values allow you to assign a name to an expression. Locals
+# can make your code more readable.
+# ? here lower is a function , which is seen next 
+# * local names have to be unique in a file.
+locals {
+  aws_account = "${data.aws_caller_identity.current.account_id}-${lower(data.aws_caller_identity.current.user_id)}"
+}
+
+
+resource "aws_s3_bucket" "bucket6" {
+  bucket = "${local.aws_account}-bucket6"
 }
 
 
@@ -81,7 +116,7 @@ output "bucket_info" {
 
 # this will output the value of newly created aws bucket2
 output "bucket2_info" {
-    value = aws_s3_bucket.bucket2.bucket
+  value = aws_s3_bucket.bucket2.bucket
 }
 
 # to  get values from the data sources, we need to prefix it with `data`, then `type`, then `label`
