@@ -30,6 +30,14 @@ resource "aws_s3_bucket" "bucket1" {
 }
 
 
+#Interpolation
+# Substitute values in strings.
+resource "aws_s3_bucket" "bucket2" {
+  bucket = "${data.aws_caller_identity.current.account_id}-backet2r"
+}
+
+
+
 #Data Sources
 # Objects NOT managed by Terraform.{terraform is not responsible for the existences of these objects}
 
@@ -48,6 +56,11 @@ data "aws_availability_zones" "available" {
 # this the value got form the resource mentioned
 output "bucket_info" {
   value = aws_s3_bucket.bucket1.bucket
+}
+
+# this will output the value of newly created aws bucket2
+output "bucket2_info" {
+    value = aws_s3_bucket.bucket2.bucket
 }
 
 # to  get values from the data sources, we need to prefix it with `data`, then `type`, then `label`
