@@ -37,6 +37,27 @@ resource "aws_s3_bucket" "bucket2" {
 }
 
 
+#Dependency
+# Resources can depend on one another.  Terraform will ensure that all
+# dependencies are met before creating the resource.  Dependency can
+# be implicit or explicit.
+resource "aws_s3_bucket" "bucket3" {
+    bucket = "${data.aws_caller_identity.current.account_id}-bucket3"
+    tags = {
+        # * Implicit dependency
+        dependency = aws_s3_bucket.bucket2.arn
+  }
+}
+
+resource "aws_s3_bucket" "bucket4" {
+    bucket = "${data.aws_caller_identity.current.account_id}-bucket4"
+    # * Explicit
+    depends_on = [
+        aws_s3_bucket.bucket3
+    ]
+}
+
+
 
 #Data Sources
 # Objects NOT managed by Terraform.{terraform is not responsible for the existences of these objects}

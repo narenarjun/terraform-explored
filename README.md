@@ -45,9 +45,32 @@ now , let's see the output:
 terraform output
 ```
 
-### AWS credentials 
+> ## 📚 Note
+>
+> After any change done to any `.tf` file, should run plan command `terraform plan`,
+> after that only we have to apply them with
+> `terraform apply`
 
-Since aws credentials are sensitive info, they are not added in the `main.tf` file, 
+
+
+### Terraform Graph
+
+with `terraform graph` command, we get the data of your state 
+to be utilized to view it in graphical way. 
+
+we can save the output of the graph command to a `.dot` file and view that file via `graphviz` tool.
+
+```bash
+>>$ terraform graph > visulgrphst.dot
+```
+
+ Vscode has a 
+`graphviz plugin` which can be very useful
+
+
+### AWS credentials
+
+Since aws credentials are sensitive info, they are not added in the `main.tf` file,
 they are set and exported in the environment variable in bash.
 
 ```bash
