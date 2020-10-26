@@ -30,14 +30,25 @@ as of terraform v0.12 or later this was removed, only interoplations need these.
 > but that form is now deprecated and will be removed in a future version of  
 > Terraform. To silence this warning, remove the quotes around "string".
 
-
 ### Locals
+
 locals are like the variables in other programming like js and python.
 
 by convention all the local are declared on the top of the `.tf` file.
 
-
-### Count 
+### Count
 
 Count can be used a iterator in the terraform file.
 This will be useful in reducing code duplication.
+
+### Data types
+
+- string
+- number
+- boolean
+- list -> can be of mixed types
+- map -> can contain simple data types or can be complex such as list and other maps too
+
+### Conditional Logics 
+
+There is no conditional branches like `if` or `else` in `hcl`, but we can use `ternary` operators.
