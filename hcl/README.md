@@ -35,3 +35,9 @@ as of terraform v0.12 or later this was removed, only interoplations need these.
 locals are like the variables in other programming like js and python.
 
 by convention all the local are declared on the top of the `.tf` file.
+
+
+### Count 
+
+Count can be used a iterator in the terraform file.
+This will be useful in reducing code duplication.

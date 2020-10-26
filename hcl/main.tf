@@ -64,18 +64,18 @@ resource "aws_s3_bucket" "bucket2" {
 # Can be specified on the command line with -var bucket_name=my-bucket
 # or in files: terraform.tfvars or *.auto.tfvars
 # or in environment variables: TF_VAR_bucket_name
-variable "bucket_name" {
-  # `type` is an optional data type specification
-  type = string
+# variable "bucket_name" {
+# `type` is an optional data type specification
+#   type = string
 
-  # `default` is the optional default value.  If `default` is ommited
-  # then a value must be supplied.
-  #default = "my-bucket"
-}
+# `default` is the optional default value.  If `default` is ommited
+# then a value must be supplied.
+#default = "my-bucket"
+# }
 
-resource "aws_s3_bucket" "bucket5" {
-  bucket = var.bucket_name
-}
+# resource "aws_s3_bucket" "bucket5" {
+#   bucket = var.bucket_name
+# }
 
 
 #Local Values
@@ -88,8 +88,42 @@ locals {
 }
 
 
-resource "aws_s3_bucket" "bucket6" {
-  bucket = "${local.aws_account}-bucket6"
+# resource "aws_s3_bucket" "bucket6" {
+#   bucket = "${local.aws_account}-bucket6"
+# }
+
+
+#Count
+# All resources have a `count` parameter.  The default is 1.
+# If count is set then a list of resources is returned (even if there is only 1)
+# If `count` is set then a `count.index` value is available.  This value contains
+# the current iteration number.
+# TIP: setting `count = 0` is a handy way to remove a resource but keep the config.
+resource "aws_s3_bucket" "bucketX" {
+  count  = 0
+  bucket = "${local.aws_account}-bucket${count.index + 7}"
+}
+
+output "bucketX" {
+  value = aws_s3_bucket.bucketX
+}
+
+# for_each
+# Resources may have a `for_each` parameter.
+# If for_each is set then a resouce is created for each item in the set and 
+# a special `each` object is available. The `each` object has `key` and `value`
+# attributes that can be referenced.
+
+locals {
+  buckets = {
+    bucket101 = "bucket101"
+    bucket201 = "bucket201"
+  }
+}
+
+resource "aws_s3_bucket" "bucketE" {
+  for_each = local.buckets
+  bucket   = "${local.aws_account}-${each.value}"
 }
 
 
