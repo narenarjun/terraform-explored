@@ -272,11 +272,11 @@ locals {
 
 locals {
   //String
-  lcase = "${lower("A mixed case String")}"
-  ucase = "${upper("a lower case string")}"
-  trimmed = "${trimspace(" A string with leading and trailing spaces    ")}"
-  formatted = "${format("Hello %s", "World")}"
-  formatted_list = "${formatlist("Hello %s", ["John", "Paul", "George", "Ringo"])}"
+  lcase = lower("A mixed case String")
+  ucase = upper("a lower case string")
+  trimmed = trimspace(" A string with leading and trailing spaces    ")
+  formatted = format("Hello %s", "World")
+  formatted_list = formatlist("Hello %s", ["John", "Paul", "George", "Ringo"])
 }
 
 output "string_functions" {

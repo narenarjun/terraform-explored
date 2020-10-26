@@ -24,6 +24,25 @@ Substitute values in strings.
 prior to terraform v0.12, even cross mentioning of resources that don't have interpolation has to be mentioned inside `"${<value to be shared or used here>}"`.
 as of terraform v0.12 or later this was removed, only interoplations need these.
 
+> ## Note
+> Terraform 0.11 and earlier required all non-constant expressions to be
+> provided via interpolation syntax, but this pattern is now deprecated. To
+> silence this warning, remove the "${ sequence from the start and the }"     
+> sequence from the end of this expression, leaving just the inner expression.
+>
+> example: 
+>
+> `lcase = "${lower("A mixed case String")}"` --> deprecated
+> 
+>change to :
+>
+> `lcase = lower("A mixed case String")`
+>
+> Template interpolation syntax is still used to construct strings from
+> expressions when the template includes multiple interpolation sequences or a
+> mixture of literal strings and interpolations. This deprecation applies only
+> to templates that consist entirely of a single interpolation sequence.
+
 ### Variables
 
 > ## 📚 Note
