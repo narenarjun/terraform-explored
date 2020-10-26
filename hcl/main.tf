@@ -250,7 +250,41 @@ locals {
   number_of_buckets = var.bucket_count > 0 ? var.bucket_count : local.minimum_number_of_buckets  //BUG!
 }
 
-resource "aws_s3_bucket" "buckets" {
-  count = local.number_of_buckets
-  bucket = "${local.aws_account}-bucket${count.index+7}"
+#Functions
+# Terraform has 100+ built in functions (but no ability to define custom functions!)
+# https://www.terraform.io/docs/configuration/functions.html
+# The syntax for a function call is <function_name>(<arg1>, <arg2>).
+locals {
+  //Date and Time
+  ts = timestamp() //Returns the current date and time.
+  current_month = formatdate("MMMM", local.ts)
+  tomorrow = formatdate("DD", timeadd(local.ts, "24h"))
 }
+
+output "date_time" {
+  value = "${local.current_month} ${local.tomorrow}"
+}
+
+locals {
+  //Numeric
+  number_of_buckets_2 = max(local.minimum_number_of_buckets, var.bucket_count)
+}
+
+locals {
+  //String
+  lcase = "${lower("A mixed case String")}"
+  ucase = "${upper("a lower case string")}"
+  trimmed = "${trimspace(" A string with leading and trailing spaces    ")}"
+  formatted = "${format("Hello %s", "World")}"
+  formatted_list = "${formatlist("Hello %s", ["John", "Paul", "George", "Ringo"])}"
+}
+
+output "string_functions" {
+  value = local.formatted_list
+}
+
+# ! this is not needed, so we are destroying these newly created buckets.
+# resource "aws_s3_bucket" "buckets" {
+#   count = local.number_of_buckets
+#   bucket = "${local.aws_account}-bucket${count.index+7}"
+# }

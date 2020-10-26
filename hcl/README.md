@@ -1,4 +1,6 @@
-## terraform folder structure
+## Importants 
+
+### terraform folder structure
 
 So, for starters the terraform folder consists of
 
@@ -43,6 +45,8 @@ This will be useful in reducing code duplication.
 
 ### Data types
 
+These are the data types supported by hcl in terraform.
+
 - string
 - number
 - boolean
@@ -52,3 +56,9 @@ This will be useful in reducing code duplication.
 ### Conditional Logics 
 
 There is no conditional branches like `if` or `else` in `hcl`, but we can use `ternary` operators.
+
+### Functions
+
+Terraform has 100+ built in functions (but no ability to define custom functions!)
+ https://www.terraform.io/docs/configuration/functions.html .
+ The syntax for a function call is <function_name>(<arg1>, <arg2>).
