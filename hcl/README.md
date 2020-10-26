@@ -1,4 +1,4 @@
-## Importants 
+## Importants
 
 ### terraform folder structure
 
@@ -25,16 +25,17 @@ prior to terraform v0.12, even cross mentioning of resources that don't have int
 as of terraform v0.12 or later this was removed, only interoplations need these.
 
 > ## Note
+>
 > Terraform 0.11 and earlier required all non-constant expressions to be
 > provided via interpolation syntax, but this pattern is now deprecated. To
-> silence this warning, remove the "${ sequence from the start and the }"     
+> silence this warning, remove the "\${ sequence from the start and the }"  
 > sequence from the end of this expression, leaving just the inner expression.
 >
-> example: 
+> example:
 >
 > `lcase = "${lower("A mixed case String")}"` --> deprecated
-> 
->change to :
+>
+> change to :
 >
 > `lcase = lower("A mixed case String")`
 >
@@ -72,12 +73,21 @@ These are the data types supported by hcl in terraform.
 - list -> can be of mixed types
 - map -> can contain simple data types or can be complex such as list and other maps too
 
-### Conditional Logics 
+### Conditional Logics
 
 There is no conditional branches like `if` or `else` in `hcl`, but we can use `ternary` operators.
 
 ### Functions
 
 Terraform has 100+ built in functions (but no ability to define custom functions!)
- https://www.terraform.io/docs/configuration/functions.html .
- The syntax for a function call is <function_name>(<arg1>, <arg2>).
+https://www.terraform.io/docs/configuration/functions.html .
+The syntax for a function call is <function_name>(<arg1>, <arg2>).
+
+
+### Clean Up
+
+```bash
+>>$ terraform destroy
+```
+
+To destroy all the created terraform created resource, run the above command.

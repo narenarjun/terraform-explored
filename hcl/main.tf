@@ -315,3 +315,34 @@ output "filtered"{
 #   count = local.number_of_buckets
 #   bucket = "${local.aws_account}-bucket${count.index+7}"
 # }
+
+
+#Directives and Heredocs
+# HCL supports more complex string templating that can be used to generate
+# full descriptive paragraphs too.
+output "heredoc" {
+  value = <<-EOT
+    This is called a `heredoc`.  It's a string literal
+    that can span multiple lines.
+  EOT
+}
+
+output "directive" {
+  value = <<-EOT
+    This is a `heredoc` with directives.
+    %{ if local.person.name == "" }
+    Sorry, I don't know your name.
+    %{ else }
+    Hi ${local.person.name}
+    %{ endif }
+  EOT
+}
+
+output "iterated" {
+  value = <<-EOT
+  Directives can also iterate...
+  %{ for number in local.evens }
+  ${number} is even.
+  %{ endfor }
+EOT
+}
