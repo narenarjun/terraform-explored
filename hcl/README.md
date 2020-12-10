@@ -1,4 +1,4 @@
-## Importants
+## Importants ‼‼
 
 ### terraform folder structure
 
@@ -24,7 +24,7 @@ Substitute values in strings.
 prior to terraform v0.12, even cross mentioning of resources that don't have interpolation has to be mentioned inside `"${<value to be shared or used here>}"`.
 as of terraform v0.12 or later this was removed, only interoplations need these.
 
-> ## Note
+> ## 📚 Note
 >
 > Terraform 0.11 and earlier required all non-constant expressions to be
 > provided via interpolation syntax, but this pattern is now deprecated. To

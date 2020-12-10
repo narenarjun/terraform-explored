@@ -13,7 +13,7 @@ Run `terraform init` command to initialize in the folder where terraform files a
 
 In `main.tf` file, copy and paste the following:
 
-```json
+```hcl
 output "greeting" {
   value = "Hello Terraform."
 }
@@ -21,7 +21,7 @@ output "greeting" {
 
 now we have to mention a provider:
 
-```json
+```hcl
 provider "random"{}
 ```
 
