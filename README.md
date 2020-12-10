@@ -77,3 +77,9 @@ they are set and exported in the environment variable in bash.
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
+
+## Terraform Backend
+
+Terraform state can be stored in a remote backend which stores 
+the state , which can be locked to prevent unnesscary changes to the infrastructure state.
+More details in [here.](https://www.terraform.io/docs/backends/index.html)
